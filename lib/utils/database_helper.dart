@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
@@ -70,6 +69,50 @@ class DatabaseHelper{
 
     //use the .toList to ensure we return a list
     return result.toList();
+  }
+
+    //Get Specific Student
+  Future<Student> getStudentRecord(int id)async {
+    //create an instance of the database client
+    var dbClient = await db;
+
+    var result = await dbClient.rawQuery("SELECT * FROM $studentTable WHERE $columnId = $id");
+    if (result.length == 0)return null;
+    return new Student.fromMap(result.first);
+  }
+
+  //Get Count
+  Future<int> getCount()async {
+    //create an instance of the database client
+    var dbClient = await db;
+    return Sqflite.firstIntValue(await dbClient.rawQuery("SELECT COUNT(*) FROM $studentTable"));
+  }
+
+  /////////////
+  ///UPDATE/////
+  ///////////
+
+  Future<int>updateRecords(Student student) async {
+    var dbClient = await db;
+    return await dbClient.update("$studentTable", student.toMap(), where: "$columnId = ?", whereArgs: [student.id]);
+  }
+
+  //////////////
+  ///DELETE/////
+  /////////////
+
+  Future<int> deleteRecord(int id) async {
+    var dbClient = await db;
+    return await dbClient.delete(studentTable, where: "$columnId = ?", whereArgs:  [id]);
+  }
+
+  //////////////////////
+  ///CLOSE DATABASE/////
+  /////////////////////
+
+  Future close() async{
+    var dbClient = await db;
+    return dbClient.close();
   }
 
 
