@@ -39,7 +39,7 @@ class _RecordsState extends State<Records> {
                         trailing: Listener(
                           key: Key(_studentRecords[index].firstName),
                           child: Icon(Icons.remove_circle, color: Colors.red),
-                          onPointerDown: (pointerEvent)=> _deleteStudent(_studentRecords[index]),
+                          onPointerDown: (pointerEvent)=> _deleteStudent(_studentRecords[index].id, index),
                           ),
                         ),
                       );

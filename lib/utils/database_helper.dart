@@ -19,6 +19,8 @@ class DatabaseHelper{
   final String columnFirstName = "firstName";
   final String columnLastName = "lastName";
   final String columnContactNumber = "contactNumber";
+  final String columnAddressLine1 = "addressLine1";
+  final String columnAddressLine2 = "addressLine2";
 
   static Database _db;
 
@@ -36,7 +38,7 @@ class DatabaseHelper{
     //Use the join method to join the path to the name of the database which is going to be "studentRecords.db"
     String path = join(documentDirectory.path, "studentRecords.db");
     //Storing the database in ourDB variable
-    var ourDB = await openDatabase(path, version: 1, onCreate: _onCreate);
+    var ourDB = await openDatabase(path, version: 3, onCreate: _onCreate);
     return ourDB;
   }
 
@@ -44,7 +46,7 @@ class DatabaseHelper{
 //Whenever you insert data into a database it return an integer value
   void _onCreate(Database db, int newVersion) async{
     await db.execute(
-      "CREATE TABLE $studentTable($columnId INTEGER PRIMARY KEY, $columnFirstName TEXT, $columnLastName TEXT, $columnContactNumber TEXT)"
+      "CREATE TABLE $studentTable($columnId INTEGER PRIMARY KEY, $columnFirstName TEXT, $columnLastName TEXT, $columnContactNumber TEXT, $columnAddressLine1 TEXT, $columnAddressLine2 TEXT)"
     );
   }
 

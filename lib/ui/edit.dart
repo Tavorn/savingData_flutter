@@ -17,6 +17,8 @@ class _EditState extends State<Edit> {
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _contactNumberController = TextEditingController();
+  final TextEditingController _addressLine1Controller = TextEditingController();
+  final TextEditingController _addressLine2Controller = TextEditingController();
 
   var db = DatabaseHelper();
 
@@ -30,6 +32,8 @@ class _EditState extends State<Edit> {
     _firstNameController.text = widget.student.firstName;
     _lastNameController.text = widget.student.lastName;
     _contactNumberController.text = widget.student.contactNumber;
+    _addressLine1Controller.text = widget.student.addressLine1;
+    _addressLine2Controller.text = widget.student.addressLine2;
   }
 
 
@@ -76,6 +80,22 @@ class _EditState extends State<Edit> {
                     labelText: "Contact No.",
                   ),
                 ),
+                TextFormField(
+                  controller: _addressLine1Controller,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.all(20.0),
+                    labelText: "Address Line 1",
+                  ),
+                ),
+                TextFormField(
+                  controller: _addressLine2Controller,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.all(20.0),
+                    labelText: "Address Line 2",
+                  ),
+                ),
               ],
             ),
           ),
@@ -100,7 +120,7 @@ class _EditState extends State<Edit> {
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   onPressed: (){
-                    _updateStudentRecord(_firstNameController.text, _lastNameController.text, _contactNumberController.text);
+                    _updateStudentRecord(_firstNameController.text, _lastNameController.text, _contactNumberController.text, _addressLine1Controller.text, _addressLine2Controller.text);
                     Navigator.popAndPushNamed(context, "/home");
                   },
                 ),
@@ -112,11 +132,13 @@ class _EditState extends State<Edit> {
     );
   }
 
-  void _updateStudentRecord(String firstName, String lastName, String contactNamber) async{
+  void _updateStudentRecord(String firstName, String lastName, String contactNamber, String addressLine1, String addressLine2) async{
     Student student = Student.fromMap({
       "firstName": firstName,
       "lastName": lastName,
       "contactNumber": contactNamber,
+      "addressLine1": addressLine1,
+      "addressLine2": addressLine2,
       "id": widget.student.id,
     });
     await db.updateRecords(student);

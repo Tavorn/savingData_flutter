@@ -14,6 +14,8 @@ class _EntryState extends State<Entry> {
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _contactNumberController = TextEditingController();
+  final TextEditingController _addressLine1Controller = TextEditingController();
+  final TextEditingController _addressLine2Controller = TextEditingController();
 
   var db = DatabaseHelper();
 
@@ -60,6 +62,22 @@ class _EntryState extends State<Entry> {
                     labelText: "Contact No.",
                   ),
                 ),
+                TextFormField(
+                  controller: _addressLine1Controller,
+                  keyboardType: TextInputType.phone,
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.all(20.0),
+                    labelText: "Andress Line 1",
+                  ),
+                ),
+                TextFormField(
+                  controller: _addressLine2Controller,
+                  keyboardType: TextInputType.phone,
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.all(20.0),
+                    labelText: "Andress Line 2",
+                  ),
+                ),
               ],
             ),
           ),
@@ -84,7 +102,7 @@ class _EntryState extends State<Entry> {
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   onPressed: (){
-                    _addInfo(_firstNameController.text, _lastNameController.text, _contactNumberController.text);
+                    _addInfo(_firstNameController.text, _lastNameController.text, _contactNumberController.text, _addressLine1Controller.text, _addressLine2Controller.text);
                     Navigator.popAndPushNamed(context, "/home");
                   },
                 ),
@@ -104,6 +122,8 @@ class _EntryState extends State<Entry> {
                     _firstNameController.clear();
                     _lastNameController.clear();
                    _contactNumberController.clear();
+                   _addressLine1Controller.clear();
+                   _addressLine2Controller.clear();
                   },
                 ),
               ],
@@ -114,12 +134,14 @@ class _EntryState extends State<Entry> {
     );
   }
 
-  void _addInfo(String firstName, String lastName, String contactNumber) async{
+  void _addInfo(String firstName, String lastName, String contactNumber, String addressLine1, String addressLine2) async{
     _firstNameController.clear();
     _lastNameController.clear();
     _contactNumberController.clear();
+    _addressLine1Controller.clear();
+    _addressLine2Controller.clear();
 
-    Student student = Student(firstName, lastName, contactNumber);
+    Student student = Student(firstName, lastName, contactNumber, addressLine1, addressLine2);
     await db.saveStudent(student);
 
     // int savedStudent = await db.saveStudent(student);
