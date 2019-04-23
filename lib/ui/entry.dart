@@ -72,7 +72,7 @@ class _EntryState extends State<Entry> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 RaisedButton(
-                  child: Text("Reset", 
+                  child: Text("Add Info", 
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20.0,
@@ -85,11 +85,11 @@ class _EntryState extends State<Entry> {
                   ),
                   onPressed: (){
                     _addInfo(_firstNameController.text, _lastNameController.text, _contactNumberController.text);
-                    Navigator.pop(context);
+                    Navigator.popAndPushNamed(context, "/home");
                   },
                 ),
                 RaisedButton(
-                  child: Text("Add Info", 
+                  child: Text("Reset", 
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20.0,

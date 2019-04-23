@@ -35,7 +35,7 @@ class _RecordsState extends State<Records> {
                     return Card(
                       child: ListTile(
                         title: _studentRecords[index],
-                        onTap: ()=> _editStudent(_studentRecords[index], index),
+                        onLongPress: ()=> _editStudent(_studentRecords[index], index),
                         trailing: Listener(
                           key: Key(_studentRecords[index].firstName),
                           child: Icon(Icons.remove_circle, color: Colors.red),
