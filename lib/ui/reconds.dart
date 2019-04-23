@@ -42,9 +42,7 @@ class _RecordsState extends State<Records> {
                           onPointerDown: (pointerEvent)=> _deleteStudent(_studentRecords[index]),
                           ),
                         ),
-                      ),
-                     }
-                    );
+                      );
                   },
                 ),
               ),
